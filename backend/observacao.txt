@@ -1,0 +1,22 @@
+Funcionalidades da API RESTful de usuários
+1. Cadastro de Usuário:
+• Permite o registro de novos usuários com dados como nome, email,
+senha e perfil de acesso (ADMIN ou USER).
+• Validações serão aplicadas para garantir que os dados inseridos
+estejam corretos e únicos (como e-mails).
+2. Consulta de Usuários:
+• Consulta geral: Retorna a lista de todos os usuários cadastrados.
+• Consulta por ID: Retorna os dados detalhados de um usuário
+específico.
+3. Atualização de Usuário:
+• Permite a modificação de dados de usuários, exceto campos
+sensíveis como senha (que terá um endpoint específico para
+alteração).
+4. Exclusão de Usuário:
+• Remove o usuário do banco de dados ou marca-o como inativo para
+preservação de histórico.
+5. Alteração de Senha:
+• Endpoint exclusivo para que o usuário possa alterar sua senha,
+seguindo boas práticas de segurança.
+6. Alteração da foto do usuário:
+• Endpoint para atualizar foto de perfiu do usuario.
