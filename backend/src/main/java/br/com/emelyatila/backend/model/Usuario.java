@@ -57,7 +57,7 @@ public class Usuario implements Serializable {
 
     @UpdateTimestamp
     @Column(name = "data_atualizacao",nullable = false)
-    @JsonFormat(shape = JsonFormat.Shape>String, pattern = "dd/MM/yyyy HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataAtualizacao;
 
 
