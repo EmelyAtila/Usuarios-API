@@ -16,6 +16,7 @@ public class UsuarioDTO {
     private Long id;
     private String usuario;
     private String email;
+    private String senha;
     private String nomeCompleto;
     private StatusUsuario statusUsuario;
     private TipoUsuario tipoUsuario;

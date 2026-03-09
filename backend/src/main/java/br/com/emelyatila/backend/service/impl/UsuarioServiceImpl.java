@@ -1,6 +1,5 @@
 package br.com.emelyatila.backend.service.impl;
 
-import br.com.emelyatila.backend.controller.UsuarioController;
 import br.com.emelyatila.backend.dto.UsuarioDTO;
 import br.com.emelyatila.backend.model.StatusUsuario;
 import br.com.emelyatila.backend.model.Usuario;
@@ -9,7 +8,6 @@ import br.com.emelyatila.backend.service.UsuarioService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +39,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     public UsuarioDTO save(UsuarioDTO dto) {
         var usuario = new Usuario();
 
+        //BeanUtils.copyProperties(dto,usuario);
+
         usuario.setUsuario(dto.getUsuario());
         usuario.setEmail(dto.getEmail());
         usuario.setSenha(dto.getSenha());
@@ -50,6 +50,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         usuario.setStatusUsuario(StatusUsuario.ATIVO); // todo usuário nasce ATIVO
 
+        //          usuarioRepository.save(usuario)
         return new UsuarioDTO(usuarioRepository.save(usuario));
     }
 
