@@ -1,24 +1,25 @@
 package br.com.emelyatila.backend.service;
 
-import br.com.emelyatila.backend.model.StatusUsuario;
-import br.com.emelyatila.backend.model.TipoUsuario;
-import br.com.emelyatila.backend.model.Usuario;
-import br.com.emelyatila.backend.repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import br.com.emelyatila.backend.dto.UsuarioDTO;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-@Service
-public class UsuarioService {
+public interface UsuarioService {
 
-    @Autowired
-    UsuarioRepository usuarioRepository;
+    List<UsuarioDTO> findAll();
 
-    public List<Usuario> listarUsuarios() {
-        return usuarioRepository.findAll();
-    }
+    Optional<UsuarioDTO> findById(Long id);
+
+    UsuarioDTO save(UsuarioDTO dto);
+
+    UsuarioDTO update(Long id, UsuarioDTO dto);
+
+    UsuarioDTO updateImagem(Long id, UsuarioDTO dto);
+
+    void delete(Long id);
+
+    boolean existsByUsuario(String usuario);
+    boolean existsByEmail(String email);
 
 }

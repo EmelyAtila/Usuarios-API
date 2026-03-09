@@ -1,0 +1,41 @@
+CREATE TYPE tipo_usuario_enum AS ENUM (
+    'PROPRIETARIO',
+    'VENDEDOR',
+    'GERENTE',
+    'CAIXA',
+    'CONTADOR',
+    'ESTOQUISTA'
+);
+
+CREATE TYPE status_usuario_enum AS ENUM (
+    'ATIVO',
+    'BLOQUEADO'
+);
+
+CREATE TABLE usuarios (
+    id BIGSERIAL PRIMARY KEY,
+    usuario VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    nome_completo VARCHAR(255),
+    status_usuario status_usuario_enum,
+    tipo_usuario tipo_usuario_enum,
+    imagem_url TEXT,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+// versão melhorada por IA para consultar
+
+CREATE TABLE usuarios (
+    id            BIGSERIAL PRIMARY KEY,
+    usuario       VARCHAR(50)  NOT NULL UNIQUE,
+    email         VARCHAR(255) NOT NULL UNIQUE,
+    senha         VARCHAR(255) NOT NULL,
+    nome_completo VARCHAR(150),
+    status_usuario status_usuario_enum NOT NULL DEFAULT 'ATIVO',
+    tipo_usuario   tipo_usuario_enum   NOT NULL,
+    imagem_url    TEXT,
+    data_criacao      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    data_atualizacao  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
