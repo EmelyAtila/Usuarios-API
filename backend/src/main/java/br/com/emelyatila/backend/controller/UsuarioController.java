@@ -1,6 +1,7 @@
 package br.com.emelyatila.backend.controller;
 
 import br.com.emelyatila.backend.dto.UsuarioDTO;
+import br.com.emelyatila.backend.exceptions.NotFoundException;
 import br.com.emelyatila.backend.service.impl.UsuarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,11 @@ public class UsuarioController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getUsuario(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.findById(id));
+//        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.findById(id));
+        return usuarioService.findById(id)
+                .<ResponseEntity<Object>>map(dto ->
+                        ResponseEntity.status(HttpStatus.OK).body(dto))
+                .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
     }
 
     @DeleteMapping("{id}")

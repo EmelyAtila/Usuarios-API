@@ -1,6 +1,7 @@
 package br.com.emelyatila.backend.service.impl;
 
 import br.com.emelyatila.backend.dto.UsuarioDTO;
+import br.com.emelyatila.backend.exceptions.NotFoundException;
 import br.com.emelyatila.backend.model.StatusUsuario;
 import br.com.emelyatila.backend.model.Usuario;
 import br.com.emelyatila.backend.repository.UsuarioRepository;
@@ -57,7 +58,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public UsuarioDTO update(Long id, UsuarioDTO dto) {
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+                .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
 
         usuario.setNomeCompleto(dto.getNomeCompleto());
         usuario.setTipoUsuario(dto.getTipoUsuario());
@@ -69,7 +70,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public UsuarioDTO updateImagem(Long id, UsuarioDTO dto) {
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Usuário não Encontrado"));
+                .orElseThrow(() -> new NotFoundException("Usuário não Encontrado"));
 
         usuario.setImagemUrl(dto.getImagemUrl());
         return new UsuarioDTO(usuarioRepository.save(usuario));
@@ -78,7 +79,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public void delete(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Usuário não Encontrado"));
+                .orElseThrow(() -> new NotFoundException("Usuário não Encontrado"));
         usuarioRepository.delete(usuario);
     }
 
