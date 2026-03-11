@@ -17,6 +17,8 @@ public interface UsuarioService {
 
     UsuarioDTO updateImagem(Long id, UsuarioDTO dto);
 
+    void updateSenha(Long id, UsuarioDTO dto);
+
     void delete(Long id);
 
     boolean existsByUsuario(String usuario);

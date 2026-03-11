@@ -2,10 +2,11 @@ package br.com.emelyatila.backend.controller;
 
 import br.com.emelyatila.backend.dto.UsuarioDTO;
 import br.com.emelyatila.backend.exceptions.NotFoundException;
-import br.com.emelyatila.backend.service.impl.UsuarioServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.emelyatila.backend.service.UsuarioService;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,10 +16,9 @@ import java.util.Objects;
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
-    //@Autowired
-    final UsuarioServiceImpl usuarioService;
+    final UsuarioService usuarioService;
 
-    public UsuarioController(UsuarioServiceImpl usuarioService) {
+    public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
 
@@ -38,20 +38,39 @@ public class UsuarioController {
                 .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteUsuario(@PathVariable Long id){
         usuarioService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body(("Usuário deletado com sucesso"));
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<Object> updateUsuario(@PathVariable Long id, @RequestBody UsuarioDTO dto){
+    @PutMapping("{id}/usuario")
+    public ResponseEntity<Object> updateUsuario(@PathVariable Long id,
+                                                @RequestBody
+                                                @Validated(UsuarioDTO.UsuarioView.UsuarioPut.class)
+                                                @JsonView(UsuarioDTO.UsuarioView.UsuarioPut.class)
+                                                UsuarioDTO dto){
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.update(id,dto));
     }
 
     @PutMapping("/{id}/imagem")
-    public ResponseEntity<Object> updateImagem(@PathVariable Long id, @RequestBody UsuarioDTO dto){
+    public ResponseEntity<Object> updateImagem(@PathVariable Long id,
+                                               @RequestBody
+                                               @Validated(UsuarioDTO.UsuarioView.ImagemPut.class)
+                                               @JsonView(UsuarioDTO.UsuarioView.ImagemPut.class)
+                                               UsuarioDTO dto){
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.updateImagem(id,dto));
+    }
+
+    @PutMapping("/{id}/senha")
+    public ResponseEntity<Object> updateSenha(@PathVariable Long id,
+                                              @RequestBody
+                                              @Validated(UsuarioDTO.UsuarioView.SenhaPut.class)
+                                              @JsonView(UsuarioDTO.UsuarioView.SenhaPut.class)
+                                              UsuarioDTO dto){
+        usuarioService.updateSenha(id,dto);
+
+        return ResponseEntity.status(HttpStatus.OK).body("Senha atualizada com sucesso");
     }
 
 

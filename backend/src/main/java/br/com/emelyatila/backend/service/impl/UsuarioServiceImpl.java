@@ -77,6 +77,20 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    public void updateSenha(Long id, UsuarioDTO dto){
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
+
+        // verificar senha antiga;
+        if (!usuario.getSenha().equals((dto.getSenhaAntiga()))){
+            throw new NotFoundException("Senha antiga incorreta");
+        }
+
+        usuario.setSenha(dto.getSenha());
+        usuarioRepository.save(usuario);
+    }
+
+    @Override
     public void delete(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Usuário não Encontrado"));
