@@ -3,6 +3,7 @@ package br.com.emelyatila.backend.dto;
 import br.com.emelyatila.backend.model.StatusUsuario;
 import br.com.emelyatila.backend.model.TipoUsuario;
 import br.com.emelyatila.backend.model.Usuario;
+import br.com.emelyatila.backend.validates.SenhaConstraint;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -43,15 +44,12 @@ public class UsuarioDTO {
     @JsonView(UsuarioView.RegistroUsuarioPost.class)
     private String email;
 
-    @NotBlank(groups = {UsuarioView.RegistroUsuarioPost.class,
-            UsuarioView.SenhaPut.class}, message = "A senha é obrigatória")
-    @Size(groups = {UsuarioView.RegistroUsuarioPost.class,
-            UsuarioView.SenhaPut.class}, min = 5, max = 20,
-            message = "A senha deve ter entre 5 e 20 caracteres")
+    @SenhaConstraint(groups = {UsuarioView.RegistroUsuarioPost.class,
+                            UsuarioView.SenhaPut.class})
     @JsonView({UsuarioView.RegistroUsuarioPost.class, UsuarioView.SenhaPut.class})
     private String senha;
 
-    @NotBlank(groups = UsuarioView.SenhaPut.class, message = "Informe a senha antiga")
+    @SenhaConstraint(groups = UsuarioView.SenhaPut.class)
     @JsonView(UsuarioView.SenhaPut.class)
     private String senhaAntiga;
 
