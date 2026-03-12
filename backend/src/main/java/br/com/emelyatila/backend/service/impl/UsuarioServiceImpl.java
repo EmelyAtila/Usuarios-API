@@ -7,8 +7,10 @@ import br.com.emelyatila.backend.model.Usuario;
 import br.com.emelyatila.backend.repository.UsuarioRepository;
 import br.com.emelyatila.backend.service.UsuarioService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,12 +24,18 @@ public class UsuarioServiceImpl implements UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
+//    @Override
+//    public List<UsuarioDTO> findAll() {
+//        return usuarioRepository.findAll()
+//                .stream()
+//                .map(UsuarioDTO::new)
+//                .toList();
+//    }
+
     @Override
-    public List<UsuarioDTO> findAll() {
-        return usuarioRepository.findAll()
-                .stream()
-                .map(UsuarioDTO::new)
-                .toList();
+    public Page<UsuarioDTO> findAll(Pageable pageable) {
+        return usuarioRepository.findAll(pageable)
+                .map(UsuarioDTO::new);
     }
 
     @Override

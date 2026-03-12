@@ -4,11 +4,13 @@ import br.com.emelyatila.backend.dto.UsuarioDTO;
 import br.com.emelyatila.backend.exceptions.NotFoundException;
 import br.com.emelyatila.backend.service.UsuarioService;
 import com.fasterxml.jackson.annotation.JsonView;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,10 +25,12 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UsuarioDTO>> findAll() {
-        List<UsuarioDTO> usuarios = usuarioService.findAll();
-        //ResponseEntity.status(HttpStatus.OK).body(usuarios)
-        return ResponseEntity.ok(usuarios);
+    public ResponseEntity<Page<UsuarioDTO>> findAll(Pageable pageable) {
+//        List<UsuarioDTO> usuarios = usuarioService.findAll();
+//        //ResponseEntity.status(HttpStatus.OK).body(usuarios)
+//        return ResponseEntity.ok(usuarios);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(usuarioService.findAll(pageable));
     }
 
     @GetMapping("/{id}")
