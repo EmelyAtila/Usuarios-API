@@ -6,6 +6,7 @@ import br.com.emelyatila.backend.model.StatusUsuario;
 import br.com.emelyatila.backend.model.Usuario;
 import br.com.emelyatila.backend.repository.UsuarioRepository;
 import br.com.emelyatila.backend.service.UsuarioService;
+import br.com.emelyatila.backend.specifications.SpecificationsTemplate;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -33,9 +34,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 //                .toList();
 //    }
 
+//    @Override
+//    public Page<UsuarioDTO> findAll(Pageable pageable) {
+//        return usuarioRepository.findAll(pageable)
+//                .map(UsuarioDTO::new);
+//    }
+
     @Override
-    public Page<UsuarioDTO> findAll(Pageable pageable) {
-        return usuarioRepository.findAll(pageable)
+    public Page<UsuarioDTO> findAll(SpecificationsTemplate.UsuarioSpec spec, Pageable pageable) {
+        return usuarioRepository.findAll(spec, pageable)
                 .map(UsuarioDTO::new);
     }
 

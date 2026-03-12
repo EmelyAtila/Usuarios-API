@@ -3,6 +3,7 @@ package br.com.emelyatila.backend.controller;
 import br.com.emelyatila.backend.dto.UsuarioDTO;
 import br.com.emelyatila.backend.exceptions.NotFoundException;
 import br.com.emelyatila.backend.service.UsuarioService;
+import br.com.emelyatila.backend.specifications.SpecificationsTemplate;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -23,9 +24,9 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<UsuarioDTO>> findAll(Pageable pageable) {
+    public ResponseEntity<Page<UsuarioDTO>> findAll(SpecificationsTemplate.UsuarioSpec spec, Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(usuarioService.findAll(pageable));
+                .body(usuarioService.findAll(spec,pageable));
     }
 
     @GetMapping("/{id}")
