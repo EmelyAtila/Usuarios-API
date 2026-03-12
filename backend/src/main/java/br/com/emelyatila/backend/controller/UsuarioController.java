@@ -11,8 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.data.domain.Pageable;
-import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -26,15 +24,12 @@ public class UsuarioController {
 
     @GetMapping
     public ResponseEntity<Page<UsuarioDTO>> findAll(Pageable pageable) {
-//        List<UsuarioDTO> usuarios = usuarioService.findAll();
-//        //ResponseEntity.status(HttpStatus.OK).body(usuarios)
-//        return ResponseEntity.ok(usuarios);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(usuarioService.findAll(pageable));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getUsuario(@PathVariable Long id){
+    public ResponseEntity<Object> getUsuario(@PathVariable Long id) {
 //        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.findById(id));
         return usuarioService.findById(id)
                 .<ResponseEntity<Object>>map(dto ->
@@ -43,18 +38,18 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteUsuario(@PathVariable Long id){
+    public ResponseEntity<Object> deleteUsuario(@PathVariable Long id) {
         usuarioService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body(("Usuário deletado com sucesso"));
     }
 
-    @PutMapping("{id}/usuario")
+    @PutMapping("/{id}/usuario")
     public ResponseEntity<Object> updateUsuario(@PathVariable Long id,
                                                 @RequestBody
                                                 @Validated(UsuarioDTO.UsuarioView.UsuarioPut.class)
                                                 @JsonView(UsuarioDTO.UsuarioView.UsuarioPut.class)
-                                                UsuarioDTO dto){
-        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.update(id,dto));
+                                                UsuarioDTO dto) {
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.update(id, dto));
     }
 
     @PutMapping("/{id}/imagem")
@@ -62,8 +57,8 @@ public class UsuarioController {
                                                @RequestBody
                                                @Validated(UsuarioDTO.UsuarioView.ImagemPut.class)
                                                @JsonView(UsuarioDTO.UsuarioView.ImagemPut.class)
-                                               UsuarioDTO dto){
-        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.updateImagem(id,dto));
+                                               UsuarioDTO dto) {
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.updateImagem(id, dto));
     }
 
     @PutMapping("/{id}/senha")
@@ -71,12 +66,11 @@ public class UsuarioController {
                                               @RequestBody
                                               @Validated(UsuarioDTO.UsuarioView.SenhaPut.class)
                                               @JsonView(UsuarioDTO.UsuarioView.SenhaPut.class)
-                                              UsuarioDTO dto){
-        usuarioService.updateSenha(id,dto);
+                                              UsuarioDTO dto) {
+        usuarioService.updateSenha(id, dto);
 
         return ResponseEntity.status(HttpStatus.OK).body("Senha atualizada com sucesso");
     }
-
 
 
 }

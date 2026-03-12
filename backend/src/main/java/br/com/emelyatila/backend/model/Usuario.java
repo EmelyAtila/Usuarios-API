@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 @Data
 public class Usuario implements Serializable {
 
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -56,7 +57,7 @@ public class Usuario implements Serializable {
     private LocalDateTime dataCriacao;
 
     @UpdateTimestamp
-    @Column(name = "data_atualizacao",nullable = false)
+    @Column(name = "data_atualizacao", nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataAtualizacao;
 

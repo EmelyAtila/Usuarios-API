@@ -18,11 +18,18 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UsuarioDTO {
 
-    public interface UsuarioView{
-        interface RegistroUsuarioPost{}
-        interface UsuarioPut{}
-        interface ImagemPut{}
-        interface SenhaPut{}
+    public interface UsuarioView {
+        interface RegistroUsuarioPost {
+        }
+
+        interface UsuarioPut {
+        }
+
+        interface ImagemPut {
+        }
+
+        interface SenhaPut {
+        }
     }
 
     @JsonView({UsuarioView.RegistroUsuarioPost.class,
@@ -32,8 +39,8 @@ public class UsuarioDTO {
 
     @NotBlank(groups = UsuarioView.RegistroUsuarioPost.class,
             message = "O usuário é obrigatório")
-    @Size(groups = UsuarioView.RegistroUsuarioPost.class, min =3, max =50,
-            message = "O usuário deve ter entre 3 e 50 caracteres" )
+    @Size(groups = UsuarioView.RegistroUsuarioPost.class, min = 3, max = 50,
+            message = "O usuário deve ter entre 3 e 50 caracteres")
     @JsonView(UsuarioView.RegistroUsuarioPost.class)
     private String usuario;
 
@@ -45,7 +52,7 @@ public class UsuarioDTO {
     private String email;
 
     @SenhaConstraint(groups = {UsuarioView.RegistroUsuarioPost.class,
-                            UsuarioView.SenhaPut.class})
+            UsuarioView.SenhaPut.class})
     @JsonView({UsuarioView.RegistroUsuarioPost.class, UsuarioView.SenhaPut.class})
     private String senha;
 
@@ -81,7 +88,8 @@ public class UsuarioDTO {
     private LocalDateTime dataAtualizacao;
 
 
-    public UsuarioDTO(){}
+    public UsuarioDTO() {
+    }
 
     public UsuarioDTO(Usuario entity) {
         this.id = entity.getId();

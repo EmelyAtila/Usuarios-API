@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -85,12 +86,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void updateSenha(Long id, UsuarioDTO dto){
+    public void updateSenha(Long id, UsuarioDTO dto) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
 
         // verificar senha antiga;
-        if (!usuario.getSenha().equals((dto.getSenhaAntiga()))){
+        if (!usuario.getSenha().equals((dto.getSenhaAntiga()))) {
             throw new NotFoundException("Senha antiga incorreta");
         }
 
